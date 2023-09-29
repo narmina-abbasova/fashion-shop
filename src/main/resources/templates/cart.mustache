@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Cart</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/font-awesome-4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Background color */
+        }
+
+        /* Navbar styling */
+        .navbar {
+            background-color: #343a40; /* Navbar background color */
+            color: #ffffff; /* Text color */
+        }
+
+        .navbar-text {
+            color: #ffffff; /* Text color */
+        }
+
+        /* Container styling */
+        .container {
+            margin: 20px;
+        }
+
+        /* Cart item card styling */
+        .product-card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: white;
+            /* Set fixed width and height for product cards */
+            width: 250px;
+            height: 420px;
+            overflow: hidden; /* Hide overflow content */
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
+        }
+
+        .product-card img {
+            min-width: 220px; /* Minimum width */
+            min-height: 220px; /* Minimum height */
+            max-width: 230px; /* Set maximum width for images */
+            max-height: 220px; /* Set maximum height for images */
+            width: auto;
+            height: auto;
+            display: block;
+            margin: 0 auto; /* Center the image horizontally */
+        }
+
+        .product-info {
+            padding: 10px;
+            flex-grow: 1; /* Expand to fill available space */
+        }
+
+        .product-actions {
+            text-align: right;
+        }
+
+        .product-actions button {
+            margin-left: 5px; /* Add margin between add and remove buttons */
+        }
+
+        .product-price-size {
+            display: flex; /* Display size and price side by side */
+            justify-content: space-between; /* Add space between them */
+        }
+
+        /* Continue Shopping button styling */
+        .continue-shopping-button {
+            font-size: 18px; /* Font size */
+            background-color: #343a40; /* Background color */
+            color: #ffffff; /* Text color */
+            padding: 10px 15px; /* Padding around the button */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Add cursor pointer */
+            text-decoration: none; /* Remove underline */
+            position: fixed; /* Position the button */
+            bottom: 20px; /* Distance from the bottom */
+            right: 20px; /* Distance from the right */
+            z-index: 1; /* Set z-index to be above other content */
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid"> <!-- Extend the navbar to the full width -->
+        <a class="navbar-brand" href="#">Fashion Shop</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <h2>Your Cart</h2>
+    <div class="row">
+        <div class="col-md-8">
+            <!-- Cart Items Panel -->
+                {{#products}}
+                <div class="col-md-4">
+                    <div class="product-card">
+                            <img src="{{imageUrl}}" alt="{{name}}">
+                            <div class="product-info">
+                                <h3>{{name}}</h3>
+                                <p>{{description}}</p>
+                                <div class="product-price-size">
+                                    <p>Size: {{size}}</p>
+                                    <p>Price: ${{price}}</p>
+                                </div>
+                            </div>
+                            <div class="product-actions mt-auto"> <!-- Move buttons to the bottom -->
+                                <form method="POST" action="/cart-item-removal" style="display: inline;">
+                                    <input type="hidden" name="productId" value="{{id}}">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa fa-minus-square" aria-hidden="true"></i>
+                                    </button>
+                                </form>
+                                <form method="POST" action="/cart-item-addition" style="display: inline;">
+                                    <input type="hidden" name="productId" value="{{id}}">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa fa-plus-square" aria-hidden="true"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {{/products}}
+        </div>
+        <div class="col-md-4">
+            <!-- Address and Phone Number Fields -->
+            <form action="/orders" method="POST">
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input type="text" class="form-control" id="address" name="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number:</label>
+                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" required>
+                </div>
+
+                <!-- Submit button for checkout -->
+                <button type="submit" class="btn btn-success">Place Order</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Continue Shopping button linking to the home page -->
+<a class="continue-shopping-button" href="/">Continue Shopping</a>
+
+<script>
+    function redirectToCart(itemCount) {
+        if (itemCount > 0) {
+            window.location.href = '/cart';
+        }
+    }
+</script>
+</body>
+</html>

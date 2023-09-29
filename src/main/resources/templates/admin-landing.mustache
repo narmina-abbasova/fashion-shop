@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Fashion Shop | Admin Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Background color */
+        }
+
+        .navbar {
+            background-color: #343a40; /* Navbar background color */
+        }
+
+        .navbar-text {
+            color: #ffffff; /* White text color */
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        .product-card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: white;
+            /* Set fixed width and height for product cards */
+            width: 250px;
+            height: 420px;
+            overflow: hidden; /* Hide overflow content */
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
+        }
+
+        /* Set minimum size for images */
+        .product-card img {
+            min-width: 220px; /* Minimum width */
+            min-height: 220px; /* Minimum height */
+            max-width: 230px; /* Set maximum width for images */
+            max-height: 220px; /* Set maximum height for images */
+            width: auto;
+            height: auto;
+            display: block;
+            margin: 0 auto; /* Center the image horizontally */
+        }
+
+
+        .product-info {
+            padding: 10px;
+            flex-grow: 1; /* Expand to fill available space */
+        }
+
+        .product-actions {
+            text-align: right;
+        }
+
+        .product-price-size {
+            display: flex; /* Display size and price side by side */
+            justify-content: space-between; /* Add space between them */
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid"> <!-- Extend the navbar to the full width -->
+        <a class="navbar-brand" href="#">Fashion Shop | Admin Page</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <p class="navbar-text">Hello, {{username}}</p>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout" style="color: #ffffff;"><!-- Change text color -->
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <h2>Product Management</h2>
+    <a href="/admin/add-product" class="btn btn-primary mb-3"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Product</a>
+    <div class="row">
+        {{#products}}
+            <div class="col-md-4">
+                <div class="product-card">
+                    <img src="{{imageUrl}}" alt="{{name}}">
+                    <div class="product-info">
+                        <h3>{{name}}</h3>
+                        <p>{{description}}</p>
+                        <div class="product-price-size">
+                            <p>Size: {{size}}</p>
+                            <p>Price: ${{price}}</p>
+                        </div>
+                    </div>
+                    <div class="product-actions mt-auto"> <!-- Move buttons to the bottom -->
+                        <a href="/admin/edit-product/{{id}}" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a>
+                        <form method="POST" action="/admin/remove-product" style="display: inline;">
+                            <input type="hidden" name="productId" value="{{id}}">
+                            <button type="submit" class="btn btn-danger"><i class="fa fa-remove" aria-hidden="true"></i> Remove</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {{/products}}
+    </div>
+</div>
+</body>
+</html>

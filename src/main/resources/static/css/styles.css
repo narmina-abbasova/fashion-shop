@@ -1,0 +1,63 @@
+/* Add your CSS styles here */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa; /* Background color */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: flex-start; /* Align elements to the top left corner */
+}
+
+h1 {
+    text-align: center;
+    padding: 20px;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+li {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+h3 {
+    margin: 10px 0;
+}
+
+p {
+    margin: 5px 0;
+}
+
+/* Add more styling as needed */
+
+.nav-links {
+    margin-left: auto; /* Move links to the top right corner */
+    margin-right: 20px; /* Add margin to separate links from the right edge */
+}
+
+.cart-icon {
+    margin-right: 20px; /* Add margin to separate the cart icon from the links */
+    font-size: 24px;
+}

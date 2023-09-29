@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Fashion Shop</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Background color */
+            position: relative; /* Make the body relative */
+        }
+
+        .navbar {
+            background-color: #343a40; /* Navbar background color */
+        }
+
+        .navbar-text {
+            color: #ffffff; /* White text color */
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        .product-card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: white;
+            /* Set fixed width and height for product cards */
+            width: 250px;
+            height: 420px;
+            overflow: hidden; /* Hide overflow content */
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
+        }
+
+        /* Set minimum size for images */
+        .product-card img {
+            min-width: 220px; /* Minimum width */
+            min-height: 220px; /* Minimum height */
+            max-width: 230px; /* Set maximum width for images */
+            max-height: 220px; /* Set maximum height for images */
+            width: auto;
+            height: auto;
+            display: block;
+            margin: 0 auto; /* Center the image horizontally */
+        }
+
+        .product-info {
+            padding: 10px;
+            flex-grow: 1; /* Expand to fill available space */
+        }
+
+        .product-actions {
+            text-align: right;
+        }
+
+        .product-price-size {
+            display: flex; /* Display size and price side by side */
+            justify-content: space-between; /* Add space between them */
+        }
+
+        /* Styles for the floating cart icon */
+        .cart-icon {
+            position: fixed; /* Fix the position */
+            bottom: 20px; /* Distance from the bottom */
+            right: 20px; /* Distance from the right */
+            font-size: 32px; /* Larger font size */
+            background-color: #343a40; /* Background color */
+            color: #ffffff; /* Text color */
+            padding: 10px 15px; /* Padding around the icon */
+            border-radius: 50%; /* Make it circular */
+            cursor: pointer; /* Add cursor pointer */
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid"> <!-- Extend the navbar to the full width -->
+        <a class="navbar-brand" href="#">Fashion Shop</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                {{#authenticated}}
+                    <li class="nav-item">
+                        <i class="cart-icon fa fa-shopping-cart" onclick="redirectToCart({{itemCountInCart}})">({{itemCountInCart}})</i>
+                    </li>
+                    <li class="nav-item">
+                        <p class="navbar-text">Hello, {{username}}</p>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout" style="color: #ffffff;">Logout</a>
+                    </li>
+                {{/authenticated}}
+                {{^authenticated}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Register</a>
+                    </li>
+                {{/authenticated}}
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        {{#products}}
+            <div class="col-md-4">
+                <div class="product-card">
+                    <img src="{{imageUrl}}" alt="{{name}}">
+                    <div class="product-info">
+                        <h3>{{name}}</h3>
+                        <p>{{description}}</p>
+                        <div class="product-price-size">
+                            <p>Size: {{size}}</p>
+                            <p>Price: ${{price}}</p>
+                        </div>
+                    </div>
+                    {{#authenticated}}
+                        <div class="product-actions mt-auto"> <!-- Move buttons to the bottom -->
+                            <form method="POST" action="/cart-items">
+                                <input type="hidden" name="productId" value="{{id}}">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-plus-square" aria-hidden="true"></i>
+                                </button>
+                            </form>
+                        </div>
+                    {{/authenticated}}
+                </div>
+            </div>
+        {{/products}}
+    </div>
+</div>
+<script>
+    function redirectToCart(itemCount) {
+        if (itemCount > 0) {
+            window.location.href = '/cart';
+        }
+    }
+</script>
+</body>
+</html>

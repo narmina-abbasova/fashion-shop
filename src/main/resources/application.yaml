@@ -1,0 +1,11 @@
+spring:
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/shopdb
+  mustache:
+    prefix: classpath:/templates/
+    suffix: .mustache
+
+upload-dir: C:\Users\elmar\IdeaProjects\Fashion Shop\build\resources\main\static

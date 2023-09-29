@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Order Details</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Background color */
+        }
+
+        /* Navbar styling */
+        .navbar {
+            background-color: #343a40; /* Navbar background color */
+            color: #ffffff; /* Text color */
+        }
+
+        .navbar-text {
+            color: #ffffff; /* Text color */
+        }
+
+        /* Container styling */
+        .container {
+            margin: 20px;
+        }
+
+        /* Cart item card styling */
+        .product-card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: white;
+            /* Set fixed width and height for product cards */
+            width: 250px;
+            height: 420px;
+            overflow: hidden; /* Hide overflow content */
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
+        }
+
+        .product-card img {
+            min-width: 220px; /* Minimum width */
+            min-height: 220px; /* Minimum height */
+            max-width: 230px; /* Set maximum width for images */
+            max-height: 220px; /* Set maximum height for images */
+            width: auto;
+            height: auto;
+            display: block;
+            margin: 0 auto; /* Center the image horizontally */
+        }
+
+        .product-info {
+            padding: 10px;
+            flex-grow: 1; /* Expand to fill available space */
+        }
+
+        .product-actions {
+            text-align: right;
+        }
+
+        .product-actions button {
+            margin-left: 5px; /* Add margin between add and remove buttons */
+        }
+
+        .product-price-size {
+            display: flex; /* Display size and price side by side */
+            justify-content: space-between; /* Add space between them */
+        }
+
+        /* Address and Phone Number Panel styling */
+        .address-panel {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 15px;
+            background-color: white;
+        }
+
+        /* Continue Shopping button styling */
+        .continue-shopping-button {
+            font-size: 18px; /* Font size */
+            background-color: #343a40; /* Background color */
+            color: #ffffff; /* Text color */
+            padding: 10px 15px; /* Padding around the button */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Add cursor pointer */
+            text-decoration: none; /* Remove underline */
+            position: fixed; /* Position the button */
+            bottom: 20px; /* Distance from the bottom */
+            right: 20px; /* Distance from the right */
+            z-index: 1; /* Set z-index to be above other content */
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid"> <!-- Extend the navbar to the full width -->
+        <a class="navbar-brand" href="#">Fashion Shop</a>
+    </div>
+</nav>
+<div class="container">
+    <h2>Order Details</h2>
+    {{#order}}
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Order Summary -->
+                <h3>Order ID: {{id}}</h3>
+                <p>Placed At: {{placedAt}}</p>
+
+                <h4>Items:</h4>
+                <ul>
+                    {{#products}}
+                        <li>
+                            <img src="{{imageUrl}}" alt="{{name}}" width="100">
+                            <h5>{{name}}</h5>
+                            <p>{{description}}</p>
+                            <p>Size: {{size}}</p>
+                            <p>Price: ${{price}}</p>
+                        </li>
+                    {{/products}}
+                </ul>
+
+                <h4>Total Amount: ${{totalAmount}}</h4>
+            </div>
+            <div class="col-md-6">
+                <!-- Shipping Information -->
+                <h3>Shipping Information</h3>
+                <p>Address: {{address}}</p>
+                <p>Phone Number: {{phoneNumber}}</p>
+            </div>
+        </div>
+    {{/order}}
+</div>
+
+<!-- Continue Shopping button linking to the home page -->
+<a class="continue-shopping-button" href="/">Continue Shopping</a>
+</body>
+</html>
